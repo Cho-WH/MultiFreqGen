@@ -104,7 +104,7 @@ h2 {
     .container {
         flex-direction: column; /* 작은 화면에서는 세로로 나열 */
         width: 100%;
-        padding: 0 1%; /* 좌우 여백을 최소화 (원하는 경우 10px로 설정) */
+        padding: 0 3%; /* 좌우 여백을 최소화 (원하는 경우 10px로 설정) */
         margin: 0; /* 마진을 제거하여 여백을 최소화 */
     }
 
