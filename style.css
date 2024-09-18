@@ -1,5 +1,4 @@
 /* Google Fonts 적용 */
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
@@ -8,6 +7,8 @@ body {
     color: #333;
     text-align: center;
     margin-top: 30px;
+    padding: 0 20px; /* 작은 화면에서도 좌우 여백을 줍니다 */
+    box-sizing: border-box; /* 모든 엘리먼트의 박스 크기를 계산할 때 패딩과 테두리를 포함 */
 }
 
 .container {
@@ -15,7 +16,8 @@ body {
     justify-content: space-between;
     margin: 0 auto;
     width: 80%;
-    max-width: 1000px; /* 최대 너비를 제한 */
+    max-width: 1000px;
+    flex-wrap: wrap; /* 작은 화면에서 요소가 자동으로 줄바꿈 됩니다 */
 }
 
 .input-section {
@@ -24,40 +26,43 @@ body {
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px; /* 각 섹션 간 여백을 추가합니다 */
+    box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-section:hover {
-    transform: translateY(-5px); /* 호버 시 살짝 위로 이동 */
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 확대 */
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 label, input {
     display: block;
     margin: 10px 0;
-    width: 100%;
+    width: 100%; /* 입력 필드가 박스 안에서 가득 차도록 만듭니다 */
+    padding: 10px; /* 입력 필드에 패딩을 추가하여 여백을 줍니다 */
+    box-sizing: border-box;
     font-size: 14px;
 }
 
 input {
-    padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* 입력 필드 안쪽 그림자 */
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s ease;
 }
 
 input:focus {
-    border-color: #3b82f6; /* 포커스 시 파란색 강조 */
+    border-color: #3b82f6;
     outline: none;
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
-    border-radius: 25px; /* 둥근 모서리 */
-    background: linear-gradient(135deg, #3b82f6, #60a5fa); /* 그라데이션 버튼 */
+    border-radius: 25px;
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
     color: white;
     border: none;
     cursor: pointer;
@@ -66,8 +71,8 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(135deg, #2563eb, #3b82f6); /* 호버 시 색상 변화 */
-    transform: translateY(-3px); /* 호버 시 살짝 위로 이동 */
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    transform: translateY(-3px);
 }
 
 button:disabled {
@@ -92,4 +97,27 @@ h2 {
 
 .controls button {
     margin: 0 10px;
+}
+
+/* 작은 화면에서 반응형 적용 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* 작은 화면에서는 세로로 나열 */
+        width: 100%;
+        padding: 0 1%; /* 좌우 여백을 최소화 (원하는 경우 10px로 설정) */
+        margin: 0; /* 마진을 제거하여 여백을 최소화 */
+    }
+
+    .input-section {
+        width: 100%; /* 섹션이 화면 가득 차도록 */
+        margin: 10px 0; /* 섹션 간 여백 */
+    }
+
+    input {
+        font-size: 16px; /* 작은 화면에서 텍스트 크기를 키웁니다 */
+    }
+
+    button {
+        font-size: 18px; /* 버튼도 크기를 키워서 터치하기 쉽게 */
+    }
 }
