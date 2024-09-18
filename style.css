@@ -1,0 +1,95 @@
+/* Google Fonts 적용 */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1000px; /* 최대 너비를 제한 */
+}
+
+.input-section {
+    width: 45%;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 박스 그림자 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-section:hover {
+    transform: translateY(-5px); /* 호버 시 살짝 위로 이동 */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 확대 */
+}
+
+label, input {
+    display: block;
+    margin: 10px 0;
+    width: 100%;
+    font-size: 14px;
+}
+
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1); /* 입력 필드 안쪽 그림자 */
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #3b82f6; /* 포커스 시 파란색 강조 */
+    outline: none;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px; /* 둥근 모서리 */
+    background: linear-gradient(135deg, #3b82f6, #60a5fa); /* 그라데이션 버튼 */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #2563eb, #3b82f6); /* 호버 시 색상 변화 */
+    transform: translateY(-3px); /* 호버 시 살짝 위로 이동 */
+}
+
+button:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+h1 {
+    font-size: 32px;
+    color: #3b82f6;
+}
+
+h2 {
+    text-align: center;
+    font-size: 18px;
+    color: #111827;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+.controls button {
+    margin: 0 10px;
+}
