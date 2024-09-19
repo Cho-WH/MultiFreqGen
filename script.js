@@ -48,27 +48,37 @@ function playSound(leftFreq, leftVolume, leftPhase, rightFreq, rightVolume, righ
     let phaseOffsetLeft = (leftPhase / 360) * (2 * Math.PI);
     let phaseOffsetRight = (rightPhase / 360) * (2 * Math.PI);
 
+    // 좌측 채널 맞춤형 파형 생성
+    let leftReal = new Float32Array([0, Math.cos(phaseOffsetLeft)]);
+    let leftImag = new Float32Array([0, Math.sin(phaseOffsetLeft)]);
+    let leftWave = audioContext.createPeriodicWave(leftReal, leftImag);
+
     // 좌측 채널 오실레이터 설정
     leftOscillator = audioContext.createOscillator();
-    leftOscillator.type = 'sine';
     leftOscillator.frequency.setValueAtTime(leftFreq, audioContext.currentTime);
+    leftOscillator.setPeriodicWave(leftWave);
 
     leftGainNode.gain.setValueAtTime(leftVolume, audioContext.currentTime);
     leftPanner.pan.setValueAtTime(-1, audioContext.currentTime);  // 좌측 채널로 소리 분리
 
     leftOscillator.connect(leftGainNode).connect(leftPanner).connect(audioContext.destination);
-    leftOscillator.start(audioContext.currentTime + phaseOffsetLeft / leftFreq);
+    leftOscillator.start();
+
+    // 우측 채널 맞춤형 파형 생성
+    let rightReal = new Float32Array([0, Math.cos(phaseOffsetRight)]);
+    let rightImag = new Float32Array([0, Math.sin(phaseOffsetRight)]);
+    let rightWave = audioContext.createPeriodicWave(rightReal, rightImag);
 
     // 우측 채널 오실레이터 설정
     rightOscillator = audioContext.createOscillator();
-    rightOscillator.type = 'sine';
     rightOscillator.frequency.setValueAtTime(rightFreq, audioContext.currentTime);
+    rightOscillator.setPeriodicWave(rightWave);
 
     rightGainNode.gain.setValueAtTime(rightVolume, audioContext.currentTime);
     rightPanner.pan.setValueAtTime(1, audioContext.currentTime);  // 우측 채널로 소리 분리
 
     rightOscillator.connect(rightGainNode).connect(rightPanner).connect(audioContext.destination);
-    rightOscillator.start(audioContext.currentTime + phaseOffsetRight / rightFreq);
+    rightOscillator.start();
 }
 
 function stopSound() {
