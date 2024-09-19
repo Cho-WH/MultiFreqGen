@@ -104,20 +104,24 @@ h2 {
     .container {
         flex-direction: column; /* 작은 화면에서는 세로로 나열 */
         width: 100%;
-        padding: 0 3%; /* 좌우 여백을 최소화 (원하는 경우 10px로 설정) */
+        padding: 0 3%; /* 좌우 여백을 최소화 */
         margin: 0; /* 마진을 제거하여 여백을 최소화 */
+        box-sizing: border-box; /* 패딩이 전체 박스 크기에 포함되도록 설정 */
     }
 
     .input-section {
         width: 100%; /* 섹션이 화면 가득 차도록 */
         margin: 10px 0; /* 섹션 간 여백 */
+        box-sizing: border-box; /* 섹션 내부 여백 포함 */
     }
 
     input {
         font-size: 16px; /* 작은 화면에서 텍스트 크기를 키웁니다 */
+        box-sizing: border-box; /* 입력 필드의 패딩과 테두리를 너비 계산에 포함 */
     }
 
     button {
         font-size: 18px; /* 버튼도 크기를 키워서 터치하기 쉽게 */
+        box-sizing: border-box; /* 버튼의 패딩도 포함 */
     }
 }
