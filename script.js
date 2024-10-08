@@ -1,4 +1,4 @@
-let leftOscillator, rightOscillator;
+et leftOscillator, rightOscillator;
 let audioContext = new (window.AudioContext || window.webkitAudioContext)();
 let leftGainNode = audioContext.createGain();
 let rightGainNode = audioContext.createGain();
@@ -6,6 +6,55 @@ let rightGainNode = audioContext.createGain();
 // PannerNode를 사용하여 좌우 소리 분리
 let leftPanner = audioContext.createStereoPanner();
 let rightPanner = audioContext.createStereoPanner();
+
+// 파형 그리기
+let canvas = document.getElementById("waveformCanvas");
+let ctx = canvas.getContext("2d");
+
+// 캔버스 해상도 조정
+function adjustCanvasResolution() {
+    const ratio = window.devicePixelRatio || 1; // 디바이스 픽셀 밀도 비율 가져오기
+    canvas.width = 600 * ratio;  // 실제 렌더링 해상도 설정
+    canvas.height = 200 * ratio;
+    ctx.scale(ratio, ratio); // 스케일을 적용하여 해상도 조정
+}
+
+adjustCanvasResolution();  // 페이지 로드 시 캔버스 해상도 조정
+
+function drawWaveform(leftFreq, leftPhase, leftVolume, rightFreq, rightPhase, rightVolume) {
+    ctx.clearRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1)); // 이전 파형을 지움
+
+    let baseAmplitude = 90; // 기본 진폭 값
+    let referenceFreq = 110; // 기준 주파수 (110Hz)
+    let scaleFactor = canvas.width * referenceFreq / (window.devicePixelRatio || 1);  // 440Hz가 한 파장으로 표현되도록 조정
+
+    // 좌측 파형 그리기
+    let leftAmplitude = baseAmplitude * leftVolume;
+    let leftAngularFreq = 2 * Math.PI * leftFreq;
+    const centerY = (canvas.height / 2) / (window.devicePixelRatio || 1);  // 스케일링에 맞춘 중앙 y 좌표
+
+    ctx.beginPath();
+    for (let x = 0; x < canvas.width / (window.devicePixelRatio || 1); x++) {
+        let t = x / scaleFactor;
+        let y = leftAmplitude * Math.sin(leftAngularFreq * t + (leftPhase * Math.PI / 180));
+        ctx.lineTo(x, centerY - y);  // 중앙을 기준으로 파형을 그리기
+    }
+    ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+    ctx.stroke();
+
+    // 우측 파형 그리기
+    let rightAmplitude = baseAmplitude * rightVolume;
+    let rightAngularFreq = 2 * Math.PI * rightFreq;
+
+    ctx.beginPath();
+    for (let x = 0; x < canvas.width / (window.devicePixelRatio || 1); x++) {
+        let t = x / scaleFactor;
+        let y = rightAmplitude * Math.sin(rightAngularFreq * t + (rightPhase * Math.PI / 180));
+        ctx.lineTo(x, centerY - y);  // 중앙을 기준으로 파형을 그리기
+    }
+    ctx.strokeStyle = "rgba(255, 0, 0, 0.5)";
+    ctx.stroke();
+}
 
 document.getElementById("playButton").addEventListener("click", function() {
     // 빈칸일 경우 기본값을 설정
@@ -45,6 +94,7 @@ function validateInput(id, min, max, label, defaultValue) {
 }
 
 function playSound(leftFreq, leftVolume, leftPhase, rightFreq, rightVolume, rightPhase) {
+    drawWaveform(leftFreq, leftPhase, leftVolume, rightFreq, rightPhase, rightVolume); // 파형 그리기
     let phaseOffsetLeft = (leftPhase / 360) * (2 * Math.PI);
     let phaseOffsetRight = (rightPhase / 360) * (2 * Math.PI);
 
