@@ -1,4 +1,4 @@
-et leftOscillator, rightOscillator;
+let leftOscillator, rightOscillator;
 let audioContext = new (window.AudioContext || window.webkitAudioContext)();
 let leftGainNode = audioContext.createGain();
 let rightGainNode = audioContext.createGain();
