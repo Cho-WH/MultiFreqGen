@@ -82,13 +82,22 @@ button:disabled {
 
 h1 {
     font-size: 32px;
-    color: #3b82f6;
+    color: #111827;
 }
 
 h2 {
     text-align: center;
     font-size: 18px;
-    color: #111827;
+}
+
+/* Left Channel 글자 색상 (파랑) */
+.left-channel {
+    color: #3B82F6;
+}
+
+/* Right Channel 글자 색상 (빨강) */
+.right-channel {
+    color: #EF4444;
 }
 
 .controls {
@@ -123,5 +132,24 @@ h2 {
     button {
         font-size: 18px; /* 버튼도 크기를 키워서 터치하기 쉽게 */
         box-sizing: border-box; /* 버튼의 패딩도 포함 */
+    }
+}
+
+/* 파형 그리기 */
+#waveformCanvas {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    width: 100%;  /* 캔버스 너비를 부모 요소에 맞춤 */
+    max-width: 600px; /* 큰 화면에서 최대 너비를 600px로 제한 */
+    height: auto;  /* 높이를 비율에 맞게 조정 */
+    max-height: 200px; /* 큰 화면에서 최대 높이를 200px로 제한 */
+}
+
+/* 작은 화면에서 반응형 적용 */
+@media (max-width: 768px) {
+    #waveformCanvas {
+        width: 90%; /* 작은 화면에서는 너비를 90%로 조정하여 너무 크지 않게 */
+        max-width: 400px; /* 작은 화면에서는 최대 너비를 300px로 제한 */
+        max-height: 150px; /* 최대 높이를 150px로 제한 */
     }
 }
